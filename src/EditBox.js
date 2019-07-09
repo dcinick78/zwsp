@@ -3,6 +3,7 @@ class TextBox extends React.Component{
     constructor(props){
         super(props)
         this.state={
+            hidden: false,
             boxTitle:this.props.boxId+' Box',
             postBody:'quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architectodsasd'
         }
@@ -10,13 +11,18 @@ class TextBox extends React.Component{
     updateTextBody = (e) => {
         this.setState({postBody: e.target.value});
     }
+    deleteMe = () => {
+        this.setState({hidden: true});
+    }
     render(){
+        if (!this.state.hidden) {
         if (this.props.editableX) {
             return(
                 <div className="PostCard__id" >
                 <h1>{this.state.boxTitle}</h1>
                 <textarea cols="10" onChange={(e)=>this.updateTextBody(e)} className="PostCard_area__id" value={this.state.postBody}></textarea>
                 <button className="PostCard_edit__id" onClick={()=>this.props.editBox()}>Edit</button>
+                <button className="PostCard_edit__id" onClick={()=>this.deleteMe()}>delete this box</button>
                 </div>
             )
         } else {
@@ -25,8 +31,12 @@ class TextBox extends React.Component{
                 <h1>{this.state.boxTitle}</h1>
                 <p>{this.state.postBody}</p>
                 <button className="PostCard_edit__id" onClick={()=>this.props.editBox()}>Edit</button>
+                <button className="PostCard_edit__id" onClick={()=>this.deleteMe()}>delete this box</button>
                 </div>
             )
+        }
+        }else { 
+            return (null)
         }
     }
 }
