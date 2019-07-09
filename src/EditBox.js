@@ -3,38 +3,37 @@ class TextBox extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            hidden: false,
-            boxTitle:this.props.boxId+' Box',
-            postBody:'quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architectodsasd'
+            boxid:this.props.boxid,
+            boxTitle:this.props.name+' Box',
+            postBody:this.props.text
         }
     }
-    updateTextBody = (e) => {
-        this.setState({postBody: e.target.value});
-    }
-    deleteMe = () => {
-        this.setState({hidden: true});
+    testie = (e) =>{
+        var index = this.state.boxid;
+        this.setState({postBody:e.target.value});
+        this.props.saveText(index,this.state.postBody);
     }
     render(){
-        if (!this.state.hidden) {
-        if (this.props.editableX) {
-            return(
-                <div className="PostCard__id" >
-                <h1>{this.state.boxTitle}</h1>
-                <textarea cols="10" onChange={(e)=>this.updateTextBody(e)} className="PostCard_area__id" value={this.state.postBody}></textarea>
-                <button className="PostCard_edit__id" onClick={()=>this.props.editBox()}>Edit</button>
-                <button className="PostCard_edit__id" onClick={()=>this.deleteMe()}>delete this box</button>
-                </div>
-            )
-        } else {
-            return(
-                <div className="PostCard__id" >
-                <h1>{this.state.boxTitle}</h1>
-                <p>{this.state.postBody}</p>
-                <button className="PostCard_edit__id" onClick={()=>this.props.editBox()}>Edit</button>
-                <button className="PostCard_edit__id" onClick={()=>this.deleteMe()}>delete this box</button>
-                </div>
-            )
-        }
+        if (this.props.visible) {
+            if (this.props.editable) {
+                return(
+                    <div className="Editbox" >
+                    <h1>{this.state.boxTitle}</h1>
+                    <textarea cols="10" onChange={(e)=>this.testie(e)} className="PostCard_area__id" value={this.state.postBody}></textarea>
+                    <button className="PostCard_edit__id" onClick={()=>this.props.editBox()}>Edit</button>
+                    <button className="PostCard_edit__id" onClick={()=>this.props.deleteBox(this.state.boxid)}>delete this box</button>
+                    </div>
+                )
+            } else {
+                return(
+                    <div className="Editbox" >
+                    <h1>{this.state.boxTitle}</h1>
+                    <p>{this.state.postBody}</p>
+                    <button className="PostCard_edit__id" onClick={()=>this.props.editBox()}>Edit</button>
+                    <button className="PostCard_edit__id" onClick={()=>this.props.deleteBox(this.state.boxid)}>delete this box</button>
+                    </div>
+                )
+            }
         }else { 
             return (null)
         }
