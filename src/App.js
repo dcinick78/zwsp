@@ -7,15 +7,26 @@ class App extends React.Component {
       super(props)
       this.state={
         data: [
-
+          {name:"First"},
+          {name:"Second"},
+          {name:"Third"},
+          {name:"Fourth"},
+          {name:"Fifth"},
         ],
-        editState: false
+        editState: true
       }
+  }
+  editBox = () => {
+    this.setState(prevState=>({editState:!prevState.editState}));
   }
   render() {
     return (
       <div className="App">
-      <EditBox />
+      <EditBox boxId={this.state.data[0].name} editableX={this.state.editState} editBox={this.editBox}/>
+      <EditBox boxId={this.state.data[1].name} editableX={this.state.editState} editBox={this.editBox} />
+      <EditBox boxId={this.state.data[2].name} editableX={this.state.editState} editBox={this.editBox} />
+      <EditBox boxId={this.state.data[3].name} editableX={this.state.editState} editBox={this.editBox} />
+      <EditBox boxId={this.state.data[4].name} editableX={this.state.editState} editBox={this.editBox} />
       </div>
     );
   }
