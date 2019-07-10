@@ -14,7 +14,7 @@ class TextBox extends React.Component{
         this.props.saveText(index,this.state.postBody);
     }
     render(){
-        if (this.props.visible) {
+        if (!this.props.visible ) return null 
             if (this.props.editable) {
                 return(
                     <div className="Editbox" >
@@ -34,9 +34,6 @@ class TextBox extends React.Component{
                     </div>
                 )
             }
-        }else { 
-            return (null)
-        }
     }
 }
 export default TextBox;
